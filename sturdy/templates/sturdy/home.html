@@ -1,0 +1,21 @@
+<h1>Активные проекты</h1>
+{% if active_projects %}
+<ul>
+    {% for project in active_projects %}
+    <li><a href="/sturdy/{{ project.id }}/">{{ project }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Активных проектов нет.</p>
+{% endif %}
+
+<h1>Все проекты</h1>
+{% if all_projects %}
+<ul>
+    {% for project in all_projects %}
+    <li><a href="/sturdy/{{ project.id }}/">{{ project }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Еще нет ни одного проекта.</p>
+{% endif %}
