@@ -1,21 +1,27 @@
-<h1>Активные проекты</h1>
-{% if active_projects %}
-<ul>
-    {% for project in active_projects %}
-    <li><a href="/sturdy/{{ project.id }}/">{{ project }}</a></li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>Активных проектов нет.</p>
-{% endif %}
+{% extends 'sturdy/base_page.html' %}
+{% block pagecontent %}
+    <h1 class="display-3">
+        Sturdy
+    </h1>
+    <p class="h4">Активные проекты</p>
+    {% if active_projects %}
+    <ul class="list-inline">
+        {% for project in active_projects %}
+        <li class="list-inline-item"><a href="{% url 'sturdy:project' project_id=project.id %}">{{ project }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Активных проектов нет.</p>
+    {% endif %}
 
-<h1>Все проекты</h1>
-{% if all_projects %}
-<ul>
-    {% for project in all_projects %}
-    <li><a href="/sturdy/{{ project.id }}/">{{ project }}</a></li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>Еще нет ни одного проекта.</p>
-{% endif %}
+    <p class="h4">Все проекты</p>
+    {% if all_projects %}
+    <ul class="list-inline">
+        {% for project in all_projects %}
+        <li class="list-inline-item"><a href="{% url 'sturdy:project' project_id=project.id %}">{{ project }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Пока нет ни одного проекта.</p>
+    {% endif %}
+{% endblock %}
