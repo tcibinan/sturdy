@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-from .models import Project
+from .models import Project, Task
 
 # Create your views here.
 class HomePageView(TemplateView):
@@ -9,4 +9,14 @@ class HomePageView(TemplateView):
         context = super(HomePageView, self).get_context_data(**kwargs)
         context['active_projects'] = Project.objects.all()[:5]
         context['all_projects'] = Project.objects.all()
+        return context
+
+
+class ProjectMainView(TemplateView):
+    template_name = 'sturdy/project.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectMainView, self).get_context_data(**kwargs)
+        context['project'] = Project.objects.get(pk = kwargs['project_id'])
+        context['correlated_tasks'] = Task.objects.filter(project = kwargs['project_id'])
         return context
