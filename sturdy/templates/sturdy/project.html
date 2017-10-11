@@ -1,15 +1,14 @@
 {% extends 'sturdy/base_page.html' %}
 {% block pagecontent %}
-    <h1 class="display-3">{{ project }}</h1>
+<h1 class="display-3">{{ project }}</h1>
 
-    <p class="h4">Задачи</p>
-    {% if correlated_tasks %}
-    <ul class="list-unstyled">
-        {% for task in correlated_tasks %}
-        <li>{{ task }}</li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p>Нет ни одной задачи.</p>
-    {% endif %}
+{% if correlated_tasks %}
+<section class="tasks-board">
+    {% for task in correlated_tasks %}
+        {% include 'sturdy/task_card.html' with project=project task=task %}
+    {% endfor %}
+</section>
+{% else %}
+<p>Нет ни одной задачи.</p>
+{% endif %}
 {% endblock %}

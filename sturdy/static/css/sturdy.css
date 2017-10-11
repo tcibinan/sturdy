@@ -2,3 +2,16 @@ body {
     padding: 20px;
     margin: 20px;
 }
+
+.tasks-board {
+    display: flex;
+}
+
+.task-card {
+    margin: 8px;
+}
+
+.task-card .value-points,
+.task-card .story-points {
+    display: inline-block;
+}

@@ -1,0 +1,21 @@
+<article class="card task-card">
+    <header class="card-header">
+        <section class="value-points">{{ task.value_points }}</section>
+        <section class="story-points">{{ task.story_points }}</section>
+    </header>
+    <section class="card-body">
+        <h5 class="card-title">{{ task.title }}</h5>
+        {% if task.parent %}
+        <p class="card-subtitle mb-2">
+            <small class="text-muted">
+                наследуется от
+                <a href="{% url 'sturdy:task_details' project_id=project.id task_id=task.parent.id %}" class="">
+                    {{ task.parent.title }}
+                </a>
+            </small>
+        </p>
+        {% endif %}
+        <p class="card-text description">{{ task.description }}</p>
+        <a href="{% url 'sturdy:task_details' project_id=project.id task_id=task.id %}" class="card-link">Детали</a>
+    </section>
+</article>
