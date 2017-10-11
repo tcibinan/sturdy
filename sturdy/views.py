@@ -1,4 +1,8 @@
-from django.views.generic import TemplateView, DetailView
+from django import forms
+from django.forms import Form
+from django.shortcuts import get_object_or_404
+from django.views.generic import TemplateView, CreateView
+from django.core.urlresolvers import reverse_lazy, reverse
 from .models import Project, Task
 
 # Create your views here.
@@ -28,3 +32,16 @@ class TaskDetailsView(TemplateView):
         context = super(TaskDetailsView, self).get_context_data(**kwargs)
         context['task'] = Task.objects.get(pk = kwargs['task_id'])
         return context
+
+class CreateTaskView(CreateView):
+    model = Task
+    template_name = 'sturdy/task_edit_form.html'
+    fields = ['title', 'description', 'story_points', 'value_points']
+    success_url = reverse_lazy('sturdy:home')
+
+    def form_valid(self, form):
+        form.instance.project = Project.objects.get(pk=self.kwargs['project_id'])
+        return super(CreateTaskView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('sturdy:project', kwargs={'project_id':self.kwargs['project_id']})
