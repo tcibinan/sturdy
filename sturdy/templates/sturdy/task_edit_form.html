@@ -1,22 +1,7 @@
 {% extends 'sturdy/base_page.html' %}
 {% block pagecontent %}
 <form action="" method="POST">{% csrf_token %}
-    <div class="form-group">
-        <label for="title">Краткое название таски</label>
-        <input type="text" class="form-control" name="title" id="title" required="" maxlength="200">
-    </div>
-    <div class="form-group">
-        <label for="description">Описание:</label>
-        <textarea name="description" class="form-control" rows="10" id="description" required="" cols="40"></textarea>
-    </div>
-    <div class="form-group">
-        <label for="story_points">Story points (SP):</label>
-        <input type="number" class="form-control" name="story_points" min="0" id="story_points" required="">
-    </div>
-    <div class="form-group">
-        <label for="value_points">Value points (VP):</label>
-        <input type="number" class="form-control" name="value_points" min="0" id="value_points" required="">
-    </div>
+    {{ form.as_p }}
     <button class="btn btn-primary" type="submit">Сохранить</button>
 </form>
 {% endblock %}

@@ -1,7 +1,8 @@
-from django.shortcuts import get_object_or_404
+from django.forms import ModelForm, TextInput, NumberInput, Textarea
 from django.views.generic import TemplateView, CreateView
 from django.views.generic.detail import DetailView
-from django.core.urlresolvers import reverse_lazy, reverse
+from django.views.generic.edit import UpdateView
+from django.core.urlresolvers import reverse
 from .models import Project, Task
 import datetime
 
@@ -35,15 +36,44 @@ class TaskDetailsView(DetailView):
     slug_field = 'id'
     slug_url_kwarg = 'task_id'
 
+
+class TaskEditForm(ModelForm):
+    class Meta:
+        model = Task
+        fields = ['title', 'description', 'story_points', 'value_points']
+        widgets = {
+            'title': TextInput(attrs={'class': 'form-control'}),
+            'description': Textarea(attrs={'class': 'form-control'}),
+            'story_points': NumberInput(attrs={'class': 'form-control'}),
+            'value_points': NumberInput(attrs={'class': 'form-control'}),
+        }
+        labels = {
+            'title': 'Краткое название таски',
+            'description': 'Описание',
+            'story_points': 'Story points (SP)',
+            'value_points': 'Value points (VP)',
+        }
+
+
 class CreateTaskView(CreateView):
-    model = Task
     template_name = 'sturdy/task_edit_form.html'
-    fields = ['title', 'description', 'story_points', 'value_points']
-    success_url = reverse_lazy('sturdy:home')
+    form_class = TaskEditForm
+    model = Task
 
     def form_valid(self, form):
         form.instance.project = Project.objects.get(pk=self.kwargs['project_id'])
         return super(CreateTaskView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('sturdy:project', kwargs={'project_id': self.kwargs['project_id']})
+
+
+class UpdateTaskView(UpdateView):
+    template_name = 'sturdy/task_edit_form.html'
+    form_class = TaskEditForm
+    model = Task
+    slug_field = 'id'
+    slug_url_kwarg = 'task_id'
 
     def get_success_url(self):
         return reverse('sturdy:project', kwargs={'project_id': self.kwargs['project_id']})
