@@ -10,10 +10,26 @@ body {
 
 .task-card {
     flex-grow: 1;
+    max-width: 50%;
     margin: 8px;
 }
 
-.task-card .value-points,
-.task-card .story-points {
+.task-card .card-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-card .value-points::after,
+.task-card .story-points::after {
+    position: relative;
     display: inline-block;
+    margin-left: 0.5em;
+}
+
+.task-card .value-points::after {
+    content: "VP";
+}
+
+.task-card .story-points::after {
+    content: "SP";
 }
