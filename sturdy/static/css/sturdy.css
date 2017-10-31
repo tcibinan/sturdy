@@ -19,17 +19,22 @@ body {
     justify-content: space-between;
 }
 
-.task-card .value-points::after,
-.task-card .story-points::after {
+.task-details .value-points::after,
+.task-details .story-points::after {
     position: relative;
     display: inline-block;
-    margin-left: 0.5em;
+    font-size: 0.8em;
 }
 
-.task-card .value-points::after {
+.task-details .value-points::after {
     content: "VP";
 }
 
-.task-card .story-points::after {
+.task-details .story-points::after {
     content: "SP";
+}
+
+.task-details .task-title,
+.task-details .points {
+    display: inline-block;
 }

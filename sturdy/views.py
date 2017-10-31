@@ -1,4 +1,6 @@
+from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView, CreateView
+from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse_lazy, reverse
 from .models import Project, Task
 import datetime
@@ -27,14 +29,11 @@ class ProjectMainView(TemplateView):
         return context
 
 
-class TaskDetailsView(TemplateView):
+class TaskDetailsView(DetailView):
     template_name = 'sturdy/task_details.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(TaskDetailsView, self).get_context_data(**kwargs)
-        context['task'] = Task.objects.get(pk=kwargs['task_id'])
-        return context
-
+    model = Task
+    slug_field = 'id'
+    slug_url_kwarg = 'task_id'
 
 class CreateTaskView(CreateView):
     model = Task
