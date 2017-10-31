@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView, CreateView
 from django.core.urlresolvers import reverse_lazy, reverse
 from .models import Project, Task
+import datetime
 
 
 # Create your views here.
@@ -9,7 +10,8 @@ class HomePageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
-        context['active_projects'] = Project.objects.all()[:5]
+        context['active_projects'] = Project.objects.filter(
+            created_date__gt=datetime.datetime.now() - datetime.timedelta(days=7))
         context['all_projects'] = Project.objects.all()
         return context
 
@@ -20,7 +22,8 @@ class ProjectMainView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ProjectMainView, self).get_context_data(**kwargs)
         context['project'] = Project.objects.get(pk=kwargs['project_id'])
-        context['correlated_tasks'] = Task.objects.filter(project=kwargs['project_id'])
+        context['correlated_tasks'] = Task.objects.filter(project=kwargs['project_id']).extra(
+            order_by=['-value_points', '-story_points'])
         return context
 
 
