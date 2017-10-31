@@ -5,7 +5,7 @@
 {% if correlated_tasks %}
 <section class="tasks-board">
     {% for task in correlated_tasks %}
-        {% include 'sturdy/task_card.html' with project=project task=task %}
+    {% include 'sturdy/task_card.html' with project=project task=task %}
     {% endfor %}
 </section>
 {% else %}

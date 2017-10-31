@@ -1,9 +1,7 @@
-from django import forms
-from django.forms import Form
-from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView, CreateView
 from django.core.urlresolvers import reverse_lazy, reverse
 from .models import Project, Task
+
 
 # Create your views here.
 class HomePageView(TemplateView):
@@ -21,17 +19,19 @@ class ProjectMainView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ProjectMainView, self).get_context_data(**kwargs)
-        context['project'] = Project.objects.get(pk = kwargs['project_id'])
-        context['correlated_tasks'] = Task.objects.filter(project = kwargs['project_id'])
+        context['project'] = Project.objects.get(pk=kwargs['project_id'])
+        context['correlated_tasks'] = Task.objects.filter(project=kwargs['project_id'])
         return context
+
 
 class TaskDetailsView(TemplateView):
     template_name = 'sturdy/task_details.html'
 
     def get_context_data(self, **kwargs):
         context = super(TaskDetailsView, self).get_context_data(**kwargs)
-        context['task'] = Task.objects.get(pk = kwargs['task_id'])
+        context['task'] = Task.objects.get(pk=kwargs['task_id'])
         return context
+
 
 class CreateTaskView(CreateView):
     model = Task
@@ -44,4 +44,4 @@ class CreateTaskView(CreateView):
         return super(CreateTaskView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('sturdy:project', kwargs={'project_id':self.kwargs['project_id']})
+        return reverse('sturdy:project', kwargs={'project_id': self.kwargs['project_id']})
