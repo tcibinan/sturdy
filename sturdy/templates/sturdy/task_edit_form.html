@@ -1,5 +1,5 @@
 {% extends 'sturdy/base_page.html' %}
-{% block pagecontent %}
+{% block securepagecontent %}
 <form action="" method="POST">{% csrf_token %}
     {{ form.as_p }}
     <button class="btn btn-primary" type="submit">Сохранить</button>

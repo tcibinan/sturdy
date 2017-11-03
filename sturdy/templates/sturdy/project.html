@@ -1,14 +1,16 @@
 {% extends 'sturdy/base_page.html' %}
 {% block pagecontent %}
-{% include 'sturdy/navigation-bar.html' with project=project project_is_active=True %}
-<h1 class="display-3">{{ project }}</h1>
-{% if correlated_tasks %}
-<section class="tasks-board">
-    {% for task in correlated_tasks %}
-    {% include 'sturdy/task_card.html' with project=project task=task %}
-    {% endfor %}
-</section>
-{% else %}
-<p>Нет ни одной задачи.</p>
-{% endif %}
+    {% include 'sturdy/navigation-bar.html' with project=project project_is_active=True %}
+{% endblock %}
+{% block securepagecontent %}
+    <h1 class="display-3">{{ project }}</h1>
+    {% if correlated_tasks %}
+    <section class="tasks-board">
+        {% for task in correlated_tasks %}
+        {% include 'sturdy/task_card.html' with project=project task=task %}
+        {% endfor %}
+    </section>
+    {% else %}
+    <p>Нет ни одной задачи.</p>
+    {% endif %}
 {% endblock %}

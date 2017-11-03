@@ -1,21 +1,23 @@
 {% extends 'sturdy/base_page.html' %}
 {% block pagecontent %}
-{% include 'sturdy/navigation-bar.html' with project=task.project task=task task_is_active=True %}
-<article class="task-details">
-    <p class="h4 task-title">{{ task.title }}</p>
-    <section class="points">
-        <span class="text-muted story-points">{{ task.story_points }}</span>
-        <span class="text-muted value-points">{{ task.value_points }}</span>
-    </section>
-    {% if task.parent %}
-    <p class="text-muted">
-        наследуется от
-        <a href="{% url 'sturdy:task_details' project_id=task.project.id task_id=task.parent.id %}" class="">
-            {{ task.parent.title }}
-        </a>
-    </p>
-    {% endif %}
-    <p class="task-description">Описание: {{ task.description }}</p>
-    <p class="">Дата создания таски: {{ task.created_date }}</p>
-</article>
+    {% include 'sturdy/navigation-bar.html' with project=task.project task=task task_is_active=True %}
+{% endblock %}
+{% block securepagecontent %}
+    <article class="task-details">
+        <p class="h4 task-title">{{ task.title }}</p>
+        <section class="points">
+            <span class="text-muted story-points">{{ task.story_points }}</span>
+            <span class="text-muted value-points">{{ task.value_points }}</span>
+        </section>
+        {% if task.parent %}
+        <p class="text-muted">
+            наследуется от
+            <a href="{% url 'sturdy:task_details' project_id=task.project.id task_id=task.parent.id %}" class="">
+                {{ task.parent.title }}
+            </a>
+        </p>
+        {% endif %}
+        <p class="task-description">Описание: {{ task.description }}</p>
+        <p class="">Дата создания таски: {{ task.created_date }}</p>
+    </article>
 {% endblock %}
