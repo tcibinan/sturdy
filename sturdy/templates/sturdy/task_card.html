@@ -17,5 +17,6 @@
         {% endif %}
         <p class="card-text description">{{ task.description }}</p>
         <a href="{% url 'sturdy:task_details' project_id=project.id task_id=task.id %}" class="card-link">Детали</a>
+        <a href="{% url 'sturdy:task_edit' project_id=project.id task_id=task.id %}" class="card-link">Изменить</a>
     </section>
 </article>

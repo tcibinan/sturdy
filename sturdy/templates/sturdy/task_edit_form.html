@@ -1,4 +1,12 @@
 {% extends 'sturdy/base_page.html' %}
+{% block non-authorised-content %}
+    {% if task_editing_is_active == True %}
+    {% include 'sturdy/navigation-bar.html' with project=task.project task=task task_editing_is_active=True %}
+    {% endif %}
+    {% if task_creating_is_active == True %}
+    {% include 'sturdy/navigation-bar.html' with project=project task_creating_is_active=True %}
+    {% endif %}
+{% endblock %}
 {% block content %}
 <form action="" method="POST">{% csrf_token %}
     {{ form.as_p }}

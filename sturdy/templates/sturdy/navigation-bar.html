@@ -19,5 +19,13 @@
         </li>
         {% endif %}
         {% endif %}
+
+        {% if task_editing_is_active == True %}
+        <li class="breadcrumb-item active" aria-current="page">изменение</li>
+        {% endif %}
+
+        {% if task_creating_is_active == True %}
+        <li class="breadcrumb-item active" aria-current="page">создание новой задачи</li>
+        {% endif %}
     </ol>
 </nav>

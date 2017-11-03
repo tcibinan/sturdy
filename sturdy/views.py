@@ -62,6 +62,12 @@ class CreateTaskView(CreateView):
     form_class = TaskEditForm
     model = Task
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['project'] = Project.objects.get(pk=self.kwargs['project_id'])
+        context['task_creating_is_active'] = True
+        return context
+
     def form_valid(self, form):
         form.instance.project = Project.objects.get(pk=self.kwargs['project_id'])
         return super(CreateTaskView, self).form_valid(form)
@@ -76,6 +82,11 @@ class UpdateTaskView(UpdateView):
     model = Task
     slug_field = 'id'
     slug_url_kwarg = 'task_id'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['task_editing_is_active'] = True
+        return context
 
     def get_success_url(self):
         return reverse('sturdy:project', kwargs={'project_id': self.kwargs['project_id']})
