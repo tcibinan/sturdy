@@ -1,9 +1,14 @@
 from django.conf.urls import url
 
-from .views import HomePageView, ProjectMainView, TaskDetailsView, CreateTaskView, UpdateTaskView
+from .views import \
+    SturdyLoginView, SturdyLogoutView, \
+    HomePageView, ProjectMainView, \
+    TaskDetailsView, CreateTaskView, UpdateTaskView
 
 app_name = 'sturdy'
 urlpatterns = [
+    url(r'^login$', SturdyLoginView.as_view(), name='login'),
+    url(r'^logout$', SturdyLogoutView.as_view(), name='logout'),
     url(r'^$', HomePageView.as_view(), name='home'),
     url(r'^project/(?P<project_id>[0-9]+)$', ProjectMainView.as_view(), name='project'),
     url(r'^project/(?P<project_id>[0-9]+)/task/(?P<task_id>[0-9]+)$', TaskDetailsView.as_view(), name='task_details'),

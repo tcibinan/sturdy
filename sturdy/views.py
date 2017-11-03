@@ -1,4 +1,6 @@
-from django.forms import ModelForm, TextInput, NumberInput, Textarea
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.forms import AuthenticationForm
+from django.forms import ModelForm, TextInput, NumberInput, PasswordInput, Textarea, CharField
 from django.views.generic import TemplateView, CreateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView
@@ -77,3 +79,22 @@ class UpdateTaskView(UpdateView):
 
     def get_success_url(self):
         return reverse('sturdy:project', kwargs={'project_id': self.kwargs['project_id']})
+
+
+class SturdyAuthenticationForm(AuthenticationForm):
+    username = CharField(label='Логин', widget=TextInput(attrs={'class': 'form-control'}))
+    password = CharField(label='Пароль', widget=PasswordInput(attrs={'class': 'form-control'}))
+
+
+class SturdyLoginView(LoginView):
+    template_name = 'sturdy/login_form.html'
+    authentication_form = SturdyAuthenticationForm
+
+    def get_success_url(self):
+        return reverse('sturdy:home')
+
+
+class SturdyLogoutView(LogoutView):
+
+    def get_next_page(self):
+        return reverse('sturdy:home')
