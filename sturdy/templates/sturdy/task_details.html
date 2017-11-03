@@ -1,8 +1,8 @@
 {% extends 'sturdy/base_page.html' %}
-{% block pagecontent %}
+{% block non-authorised-content %}
     {% include 'sturdy/navigation-bar.html' with project=task.project task=task task_is_active=True %}
 {% endblock %}
-{% block securepagecontent %}
+{% block content %}
     <article class="task-details">
         <p class="h4 task-title">{{ task.title }}</p>
         <section class="points">

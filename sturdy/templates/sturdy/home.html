@@ -1,10 +1,10 @@
 {% extends 'sturdy/base_page.html' %}
-{% block pagecontent %}
+{% block non-authorised-content %}
     <h1 class="display-3">
         Sturdy
     </h1>
 {% endblock %}
-{% block securepagecontent %}
+{% block content %}
     <p class="h4">Активные проекты</p>
     {% if active_projects %}
     <ul class="list-inline">

@@ -1,11 +1,11 @@
-{% extends 'sturdy/base_page.html' %}
-{% block pagecontent %}
-{% if user.is_authenticated %}
-<p>Вы уже авторизованы в системе как <b>{{ user.username }}</b></p>
-{% else %}
-<form action="" method="POST">{% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn btn-primary" type="submit">Войти</button>
-</form>
-{% endif %}
+{% extends 'sturdy/unsecured_base_page.html' %}
+{% block base %}
+    {% if user.is_authenticated %}
+    <p>Вы уже авторизованы в системе как <b>{{ user.username }}</b></p>
+    {% else %}
+    <form action="" method="POST">{% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary" type="submit">Войти</button>
+    </form>
+    {% endif %}
 {% endblock %}

@@ -1,8 +1,8 @@
 {% extends 'sturdy/base_page.html' %}
-{% block pagecontent %}
+{% block non-authorised-content %}
     {% include 'sturdy/navigation-bar.html' with project=project project_is_active=True %}
 {% endblock %}
-{% block securepagecontent %}
+{% block content %}
     <h1 class="display-3">{{ project }}</h1>
     {% if correlated_tasks %}
     <section class="tasks-board">
