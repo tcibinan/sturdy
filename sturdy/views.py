@@ -1,6 +1,6 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import AuthenticationForm
-from django.forms import ModelForm, TextInput, NumberInput, PasswordInput, Textarea, CharField
+from django.forms import ModelForm, TextInput, NumberInput, PasswordInput, Textarea, CharField, DateInput, DurationField
 from django.views.generic import TemplateView, CreateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView
@@ -42,16 +42,20 @@ class TaskDetailsView(DetailView):
 class TaskEditForm(ModelForm):
     class Meta:
         model = Task
-        fields = ['title', 'description', 'story_points', 'value_points']
+        fields = ['title', 'description', 'start', 'duration', 'story_points', 'value_points']
         widgets = {
             'title': TextInput(attrs={'class': 'form-control'}),
             'description': Textarea(attrs={'class': 'form-control'}),
+            'start': DateInput(attrs={'class': 'form-control'}),
+            'duration': TextInput(attrs={'class': 'form-control'}),
             'story_points': NumberInput(attrs={'class': 'form-control'}),
             'value_points': NumberInput(attrs={'class': 'form-control'}),
         }
         labels = {
             'title': 'Краткое название таски',
             'description': 'Описание',
+            'start': 'Начало',
+            'duration': 'Продолжительность',
             'story_points': 'Story points (SP)',
             'value_points': 'Value points (VP)',
         }
@@ -106,6 +110,5 @@ class SturdyLoginView(LoginView):
 
 
 class SturdyLogoutView(LogoutView):
-
     def get_next_page(self):
         return reverse('sturdy:home')
