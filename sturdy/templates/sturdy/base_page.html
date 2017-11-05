@@ -1,0 +1,9 @@
+{% extends 'sturdy/unsecured_base_page.html' %}
+{% block base %}
+    {% block non-authorised-content %}{% endblock %}
+    {% if user.is_authenticated %}
+        {% block content %}{% endblock %}
+    {% else %}
+        {% include 'sturdy/login_link.html' %}
+    {% endif %}
+{% endblock %}

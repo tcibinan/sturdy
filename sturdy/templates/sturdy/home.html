@@ -1,0 +1,30 @@
+{% extends 'sturdy/base_page.html' %}
+{% block non-authorised-content %}
+    <h1 class="display-3">
+        Sturdy
+    </h1>
+{% endblock %}
+{% block content %}
+    <p><a href="{% url 'sturdy:logout' %}" class="btn btn-outline-secondary">Выйти из системы</a></p>
+    <p class="h4">Активные проекты</p>
+    {% if active_projects %}
+    <ul class="list-inline">
+        {% for project in active_projects %}
+        <li class="list-inline-item"><a href="{% url 'sturdy:project' project_id=project.id %}">{{ project }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Активных проектов нет.</p>
+    {% endif %}
+
+    <p class="h4">Все проекты</p>
+    {% if all_projects %}
+    <ul class="list-inline">
+        {% for project in all_projects %}
+        <li class="list-inline-item"><a href="{% url 'sturdy:project' project_id=project.id %}">{{ project }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Пока нет ни одного проекта.</p>
+    {% endif %}
+{% endblock %}

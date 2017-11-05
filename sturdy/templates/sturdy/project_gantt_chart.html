@@ -1,0 +1,51 @@
+{% extends 'sturdy/base_page_with_gantt_chart.html' %}
+{% block content %}
+    {% include 'sturdy/navigation-bar.html' with project_id=project.id gantt_diagram_is_active=True %}
+    <header class="project-header">
+        <h3 class="display-4">{{ project.name }}</h3>
+    </header>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['gantt']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function daysToMilliseconds(days) {
+            return days * 24 * 60 * 60 * 1000;
+        }
+
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Task ID');
+            data.addColumn('string', 'Task Name');
+            data.addColumn('date', 'Start Date');
+            data.addColumn('date', 'End Date');
+            data.addColumn('number', 'Duration');
+            data.addColumn('number', 'Percent Complete');
+            data.addColumn('string', 'Dependencies');
+
+            data.addRows(generateChartRows());
+
+            var options = {
+                height: document.getElementById('project_{{ project.id }}_gantt_chart').clientHeight
+            };
+            var chart = new google.visualization.Gantt(document.getElementById('project_{{ project.id }}_gantt_chart'));
+            chart.draw(data, options);
+        }
+
+        function generateChartRows() {
+            rows = [];
+            {% for task in correlated_tasks %}
+                rows.push([
+                    '{{ task.id }}', // Task ID
+                    '{{ task.title }}', // Task Name
+                    new Date({{ task.start.year}}, {{ task.start.month }}, {{ task.start.day }}), // Start Date
+                    null, //new Date(2018, 0, 9), // End Date
+                    daysToMilliseconds({{ task.duration.days }}), // Duration
+                    25, // Percent Complete
+                    '{{ task.parent.id }}' // Dependencies
+                ]);
+            {% endfor %}
+            return rows;
+        }
+    </script>
+    <section id="project_{{ project.id }}_gantt_chart" class="gantt-diagramm"></section>
+{% endblock %}

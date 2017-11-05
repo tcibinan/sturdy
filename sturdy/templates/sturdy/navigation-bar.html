@@ -1,0 +1,35 @@
+<nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'sturdy:home' %}">Sturdy</a></li>
+
+        {% if project %}
+        {% if project_is_active == True %}
+        <li class="breadcrumb-item active" aria-current="page">{{ project.name }}</li>
+        {% else %}
+        <li class="breadcrumb-item"><a href="{% url 'sturdy:project' project_id=project.id %}">{{ project.name }}</a></li>
+        {% endif %}
+        {% endif %}
+
+        {% if gantt_diagram_is_active == True %}
+        <li class="breadcrumb-item active" aria-current="page">диграмма гранта</li>
+        {% endif %}
+
+        {% if task %}
+        {% if task_is_active == True %}
+        <li class="breadcrumb-item active" aria-current="page">{{ task.title }}</li>
+        {% else %}
+        <li class="breadcrumb-item">
+            <a href="{% url 'sturdy:task_details' project_id=project.id task_id=task.id %}">{{ task.title }}</a>
+        </li>
+        {% endif %}
+        {% endif %}
+
+        {% if task_editing_is_active == True %}
+        <li class="breadcrumb-item active" aria-current="page">изменение</li>
+        {% endif %}
+
+        {% if task_creating_is_active == True %}
+        <li class="breadcrumb-item active" aria-current="page">создание новой задачи</li>
+        {% endif %}
+    </ol>
+</nav>
