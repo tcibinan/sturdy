@@ -10,6 +10,10 @@
         {% endif %}
         {% endif %}
 
+        {% if gantt_diagram_is_active == True %}
+        <li class="breadcrumb-item active" aria-current="page">диграмма гранта</li>
+        {% endif %}
+
         {% if task %}
         {% if task_is_active == True %}
         <li class="breadcrumb-item active" aria-current="page">{{ task.title }}</li>

@@ -19,5 +19,7 @@
         {% endif %}
         <p class="task-description">Описание: {{ task.description }}</p>
         <p class="">Дата создания таски: {{ task.created_date }}</p>
+        <a href="{% url 'sturdy:task_edit' project_id=task.project.id task_id=task.id %}" class="btn btn-outline-primary">Изменить</a>
+        <a href="{% url 'sturdy:task_delete' project_id=task.project.id task_id=task.id %}" class="btn btn-outline-danger">Удалить</a>
     </article>
 {% endblock %}

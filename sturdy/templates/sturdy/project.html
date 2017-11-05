@@ -3,14 +3,21 @@
     {% include 'sturdy/navigation-bar.html' with project=project project_is_active=True %}
 {% endblock %}
 {% block content %}
-    <h1 class="display-3">{{ project }}</h1>
+    <header class="project-header">
+        <h3 class="display-4">{{ project }}</h3>
+        {% if correlated_tasks %}
+            <a href="{% url 'sturdy:project_gantt_chart' project_id=project.id %}" class="btn btn-link">Таблица Ганта</a>
+        {% endif %}
+        <a href="{% url 'sturdy:create_task' project_id=project.id %}" class="btn btn-outline-primary">Добавить новую
+            задачу</a>
+    </header>
     {% if correlated_tasks %}
-    <section class="tasks-board">
-        {% for task in correlated_tasks %}
-        {% include 'sturdy/task_card.html' with project=project task=task %}
-        {% endfor %}
-    </section>
+        <section class="tasks-board">
+            {% for task in correlated_tasks %}
+                {% include 'sturdy/task_card.html' with project=project task=task %}
+            {% endfor %}
+        </section>
     {% else %}
-    <p>Нет ни одной задачи.</p>
+        <p>Нет ни одной задачи.</p>
     {% endif %}
 {% endblock %}

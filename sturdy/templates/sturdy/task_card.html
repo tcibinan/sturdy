@@ -6,17 +6,20 @@
     <section class="card-body">
         <h5 class="card-title">{{ task.title }}</h5>
         {% if task.parent %}
-        <p class="card-subtitle mb-2">
-            <small class="text-muted">
-                наследуется от
-                <a href="{% url 'sturdy:task_details' project_id=project.id task_id=task.parent.id %}" class="">
-                    {{ task.parent.title }}
-                </a>
-            </small>
-        </p>
+            <p class="card-subtitle mb-2">
+                <small class="text-muted">
+                    наследуется от
+                    <a href="{% url 'sturdy:task_details' project_id=project.id task_id=task.parent.id %}" class="">
+                        {{ task.parent.title }}
+                    </a>
+                </small>
+            </p>
         {% endif %}
         <p class="card-text description">{{ task.description }}</p>
+    </section>
+    <section class="card-footer text-muted">
         <a href="{% url 'sturdy:task_details' project_id=project.id task_id=task.id %}" class="card-link">Детали</a>
         <a href="{% url 'sturdy:task_edit' project_id=project.id task_id=task.id %}" class="card-link">Изменить</a>
+        <a href="{% url 'sturdy:task_delete' project_id=project.id task_id=task.id %}" class="card-link card-link-danger">Удалить</a>
     </section>
 </article>

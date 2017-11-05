@@ -3,7 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.forms import ModelForm, TextInput, NumberInput, PasswordInput, Textarea, CharField, DateInput, DurationField
 from django.views.generic import TemplateView, CreateView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, DeleteView
 from django.core.urlresolvers import reverse
 from .models import Project, Task
 import datetime
@@ -104,6 +104,18 @@ class UpdateTaskView(UpdateView):
         context = super().get_context_data(**kwargs)
         context['task_editing_is_active'] = True
         return context
+
+    def get_success_url(self):
+        return reverse('sturdy:project', kwargs={'project_id': self.kwargs['project_id']})
+
+
+class DeleteTaskView(DeleteView):
+    model = Task
+    slug_field = 'id'
+    slug_url_kwarg = 'task_id'
+
+    def get(self, request, *args, **kwargs):
+        return self.post(self, request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse('sturdy:project', kwargs={'project_id': self.kwargs['project_id']})

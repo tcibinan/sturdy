@@ -5,6 +5,7 @@
     </h1>
 {% endblock %}
 {% block content %}
+    <p><a href="{% url 'sturdy:logout' %}" class="btn btn-outline-secondary">Выйти из системы</a></p>
     <p class="h4">Активные проекты</p>
     {% if active_projects %}
     <ul class="list-inline">

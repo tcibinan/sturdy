@@ -3,7 +3,7 @@ from django.conf.urls import url
 from .views import \
     SturdyLoginView, SturdyLogoutView, \
     HomePageView, ProjectMainView, ProjectGanttChartView, \
-    TaskDetailsView, CreateTaskView, UpdateTaskView
+    TaskDetailsView, CreateTaskView, UpdateTaskView, DeleteTaskView
 
 app_name = 'sturdy'
 urlpatterns = [
@@ -14,5 +14,6 @@ urlpatterns = [
     url(r'^project/(?P<project_id>[0-9]+)/gantt_chart$', ProjectGanttChartView.as_view(), name='project_gantt_chart'),
     url(r'^project/(?P<project_id>[0-9]+)/task/(?P<task_id>[0-9]+)$', TaskDetailsView.as_view(), name='task_details'),
     url(r'^project/(?P<project_id>[0-9]+)/task/(?P<task_id>[0-9]+)/edit$', UpdateTaskView.as_view(), name='task_edit'),
+    url(r'^project/(?P<project_id>[0-9]+)/task/(?P<task_id>[0-9]+)/delete$', DeleteTaskView.as_view(), name='task_delete'),
     url(r'^project/(?P<project_id>[0-9]+)/create_task$', CreateTaskView.as_view(), name='create_task'),
 ]

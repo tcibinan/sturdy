@@ -1,11 +1,9 @@
 {% extends 'sturdy/base_page_with_gantt_chart.html' %}
 {% block content %}
-    <style>
-        body {
-            padding: 0;
-            margin: 0;
-        }
-    </style>
+    {% include 'sturdy/navigation-bar.html' with project_id=project.id gantt_diagram_is_active=True %}
+    <header class="project-header">
+        <h3 class="display-4">{{ project.name }}</h3>
+    </header>
     <script type="text/javascript">
         google.charts.load('current', {'packages': ['gantt']});
         google.charts.setOnLoadCallback(drawChart);
@@ -27,7 +25,7 @@
             data.addRows(generateChartRows());
 
             var options = {
-                height: document.documentElement.clientHeight
+                height: document.getElementById('project_{{ project.id }}_gantt_chart').clientHeight
             };
             var chart = new google.visualization.Gantt(document.getElementById('project_{{ project.id }}_gantt_chart'));
             chart.draw(data, options);
@@ -49,5 +47,5 @@
             return rows;
         }
     </script>
-    <div id="project_{{ project.id }}_gantt_chart"></div>
+    <section id="project_{{ project.id }}_gantt_chart" class="gantt-diagramm"></section>
 {% endblock %}
