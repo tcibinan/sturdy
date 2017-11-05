@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+import datetime
 
 
 # Create your models here.
@@ -20,8 +22,10 @@ class Task(models.Model):
         verbose_name_plural = 'Задания'
 
     title = models.CharField(max_length=200)
-    description = models.TextField()
+    description = models.TextField(null=True)
     created_date = models.DateField(auto_now=True)
+    start = models.DateField(default=timezone.now)
+    duration = models.DurationField(default=datetime.timedelta(days=3))
     story_points = models.PositiveIntegerField()
     value_points = models.PositiveIntegerField()
     project = models.ForeignKey(
