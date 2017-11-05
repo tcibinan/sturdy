@@ -28,7 +28,20 @@ class ProjectMainView(TemplateView):
         context = super(ProjectMainView, self).get_context_data(**kwargs)
         context['project'] = Project.objects.get(pk=kwargs['project_id'])
         context['correlated_tasks'] = Task.objects.filter(project=kwargs['project_id']).extra(
-            order_by=['-value_points', '-story_points'])
+            order_by=['-value_points', '-story_points']
+        )
+        return context
+
+
+class ProjectGanttChartView(TemplateView):
+    template_name = 'sturdy/project_gantt_chart.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectGanttChartView, self).get_context_data(**kwargs)
+        context['project'] = Project.objects.get(pk=kwargs['project_id'])
+        context['correlated_tasks'] = Task.objects.filter(project=kwargs['project_id']).extra(
+            order_by=['-value_points', '-story_points']
+        )
         return context
 
 
